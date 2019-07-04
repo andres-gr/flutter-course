@@ -5,7 +5,7 @@ class Question extends StatelessWidget {
 
   const Question({
     Key key,
-    this.questionText,
+    @required this.questionText,
   }) : super(key: key);
 
   @override

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Answer extends StatelessWidget {
-  final Function handleAnswer;
-
   final String answerText;
+
+  final Function handleAnswer;
 
   const Answer({
     Key key,
-    this.handleAnswer,
-    this.answerText,
+    @required this.answerText,
+    @required this.handleAnswer,
   }) : super(key: key);
 
   @override

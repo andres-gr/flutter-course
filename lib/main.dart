@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:udemy_course/answer.dart';
-import 'package:udemy_course/question.dart';
+import 'package:udemy_course/quiz.dart';
+import 'package:udemy_course/result.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,37 +19,85 @@ class _MyAppState extends State<MyApp> {
     {
       'questionText': 'Whats fav color?',
       'answers': [
-        'Black',
-        'Blue',
-        'Red',
-        'Green',
+        {
+          'text': 'Black',
+          'score': 10,
+        },
+        {
+          'text': 'Blue',
+          'score': 5,
+        },
+        {
+          'text': 'Red',
+          'score': 8,
+        },
+        {
+          'text': 'Green',
+          'score': 1,
+        },
       ],
     },
     {
       'questionText': 'Whats fav animal?',
       'answers': [
-        'Snake',
-        'Ocelot',
-        'Boss',
-        'Zero',
+        {
+          'text': 'Snake',
+          'score': 1,
+        },
+        {
+          'text': 'Ocelot',
+          'score': 4,
+        },
+        {
+          'text': 'Boss',
+          'score': 0,
+        },
+        {
+          'text': 'Zero',
+          'score': 10,
+        },
       ]
     },
     {
       'questionText': 'Fav instructor?',
       'answers': [
-        'Max',
-        'Colt',
-        'Spencer',
-        'Peggy',
+        {
+          'text': 'Max',
+          'score': 1,
+        },
+        {
+          'text': 'Colt',
+          'score': 3,
+        },
+        {
+          'text': 'Spencer',
+          'score': 5,
+        },
+        {
+          'text': 'Peggy',
+          'score': 7,
+        },
       ],
     }
   ];
 
   var _index = 0;
 
-  void _answerQuestion() {
+  var _score = 0;
+
+  void _answerQuestion(int score) {
+    if (_index < _questions.length) {
+      _score += score;
+      setState(() {
+        _index += 1;
+      });
+    }
+  }
+
+  void _resetState() {
     setState(() {
-      _index = _index + 1;
+      _score = 0;
+      _index = 0;
     });
   }
 
@@ -61,27 +109,16 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Material App Bar'),
         ),
-        body: Container(
-          height: double.infinity,
-          width: double.infinity,
-          child: Center(
-            child: Column(
-              children: <Widget>[
-                Question(
-                  questionText: _questions[_index]['questionText'],
-                ),
-                ...(_questions[_index]['answers'] as List<String>)
-                    .map(
-                      (question) => Answer(
-                            handleAnswer: _answerQuestion,
-                            answerText: question,
-                          ),
-                    )
-                    .toList(),
-              ],
-            ),
-          ),
-        ),
+        body: _index < _questions.length
+            ? Quiz(
+                handleAnswer: _answerQuestion,
+                index: _index,
+                questions: _questions,
+              )
+            : Result(
+                handleReset: _resetState,
+                score: _score,
+              ),
       ),
     );
   }
