@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 class Answer extends StatelessWidget {
   final Function handleAnswer;
 
-  Answer({
+  final String answerText;
+
+  const Answer({
     Key key,
     this.handleAnswer,
+    this.answerText,
   }) : super(key: key);
 
   @override
@@ -18,7 +21,7 @@ class Answer extends StatelessWidget {
       child: RaisedButton(
         color: Colors.blue,
         textColor: Colors.white,
-        child: const Text('Answer 1'),
+        child: Text(answerText),
         onPressed: handleAnswer,
       ),
     );

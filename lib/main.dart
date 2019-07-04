@@ -15,9 +15,34 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _questions = [
-    'Whats fav color?',
-    'Whats fav animal?',
+  final _questions = const [
+    {
+      'questionText': 'Whats fav color?',
+      'answers': [
+        'Black',
+        'Blue',
+        'Red',
+        'Green',
+      ],
+    },
+    {
+      'questionText': 'Whats fav animal?',
+      'answers': [
+        'Snake',
+        'Ocelot',
+        'Boss',
+        'Zero',
+      ]
+    },
+    {
+      'questionText': 'Fav instructor?',
+      'answers': [
+        'Max',
+        'Colt',
+        'Spencer',
+        'Peggy',
+      ],
+    }
   ];
 
   var _index = 0;
@@ -43,17 +68,16 @@ class _MyAppState extends State<MyApp> {
             child: Column(
               children: <Widget>[
                 Question(
-                  questionText: _questions[_index],
+                  questionText: _questions[_index]['questionText'],
                 ),
-                Answer(
-                  handleAnswer: _answerQuestion,
-                ),
-                Answer(
-                  handleAnswer: _answerQuestion,
-                ),
-                Answer(
-                  handleAnswer: _answerQuestion,
-                ),
+                ...(_questions[_index]['answers'] as List<String>)
+                    .map(
+                      (question) => Answer(
+                            handleAnswer: _answerQuestion,
+                            answerText: question,
+                          ),
+                    )
+                    .toList(),
               ],
             ),
           ),
