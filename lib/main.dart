@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:udemy_course/text.dart';
-import 'package:udemy_course/textControl.dart';
+import 'package:udemy_course/text_control.dart';
 
 void main() => runApp(MyApp());
 
