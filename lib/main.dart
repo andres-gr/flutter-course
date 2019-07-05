@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:udemy_course/transaction.dart';
 
@@ -30,7 +31,6 @@ class MyApp extends StatelessWidget {
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Container(
               height: 100,
@@ -40,6 +40,32 @@ class MyApp extends StatelessWidget {
                 child: const Text('Chart'),
               ),
             ),
+            Card(
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Title',
+                      ),
+                    ),
+                    TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Amount',
+                      ),
+                    ),
+                    FlatButton(
+                      textColor: Colors.purple,
+                      child: const Text('Add Transaction'),
+                      onPressed: () {},
+                    )
+                  ],
+                ),
+              ),
+            ),
             Column(
               children: transactions
                   .map(
@@ -47,11 +73,11 @@ class MyApp extends StatelessWidget {
                           child: Row(
                             children: <Widget>[
                               Container(
-                                margin: EdgeInsets.symmetric(
+                                margin: const EdgeInsets.symmetric(
                                   horizontal: 16,
                                   vertical: 8,
                                 ),
-                                padding: EdgeInsets.all(8),
+                                padding: const EdgeInsets.all(8),
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                     color: Colors.purple,
@@ -59,7 +85,7 @@ class MyApp extends StatelessWidget {
                                   ),
                                 ),
                                 child: Text(
-                                  item.amount.toString(),
+                                  '\$${item.amount}',
                                   style: TextStyle(
                                     color: Colors.purple,
                                     fontSize: 20,
@@ -78,7 +104,7 @@ class MyApp extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    item.date.toString(),
+                                    DateFormat.yMMMd().format(item.date),
                                     style: TextStyle(
                                       color: Colors.grey,
                                     ),
