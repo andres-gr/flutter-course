@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 
-class NewTransaction extends StatelessWidget {
+class NewTransaction extends StatefulWidget {
   final Function handleNextTransaction;
 
-  NewTransaction({
+  const NewTransaction({
     Key key,
     @required this.handleNextTransaction,
   }) : super(key: key);
 
+  @override
+  _NewTransactionState createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
   final _titleController = TextEditingController();
 
   final _amountController = TextEditingController();
@@ -18,10 +23,12 @@ class NewTransaction extends StatelessWidget {
 
     if (title.isEmpty || amount <= 0) return;
 
-    handleNextTransaction(
+    widget.handleNextTransaction(
       title,
       amount,
     );
+    
+    Navigator.of(context).pop();
   }
 
   @override

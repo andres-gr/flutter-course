@@ -17,8 +17,8 @@ class TransactionList extends StatelessWidget {
       height: 300,
       child: ListView.builder(
         itemBuilder: (
-          BuildContext context,
-          int index,
+          context,
+          index,
         ) =>
             Card(
               child: Row(
