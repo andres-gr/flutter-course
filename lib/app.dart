@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'components/chart.dart';
 import 'components/new_transaction.dart';
 import 'components/transaction_list.dart';
 import 'models/transaction.dart';
@@ -15,19 +16,31 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final List<Transaction> _userTransactions = [
-    Transaction(
-      id: 't1',
-      title: 'New shoes',
-      amount: 60.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'New vest',
-      amount: 12.99,
-      date: DateTime.now(),
-    ),
+    // Transaction(
+    //   id: 't1',
+    //   title: 'New shoes',
+    //   amount: 60.99,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'New vest',
+    //   amount: 12.99,
+    //   date: DateTime.now(),
+    // ),
   ];
+
+  List<Transaction> get _recentTransactions {
+    return _userTransactions
+        .where(
+          (val) => val.date.isAfter(
+            DateTime.now().subtract(
+              Duration(days: 7),
+            ),
+          ),
+        )
+        .toList();
+  }
 
   void _addTransaction(
     String title,
@@ -49,12 +62,12 @@ class _MyAppState extends State<MyApp> {
     showModalBottomSheet(
       context: context,
       builder: (_) => GestureDetector(
-            onTap: () {},
-            behavior: HitTestBehavior.opaque,
-            child: NewTransaction(
-              handleNextTransaction: _addTransaction,
-            ),
-          ),
+        onTap: () {},
+        behavior: HitTestBehavior.opaque,
+        child: NewTransaction(
+          handleNextTransaction: _addTransaction,
+        ),
+      ),
     );
   }
 
@@ -62,7 +75,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Material App Bar'),
+        title: const Text('Personal Expenses'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
@@ -73,12 +86,8 @@ class _MyAppState extends State<MyApp> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Container(
-            child: Card(
-              color: Colors.blue,
-              elevation: 5,
-              child: const Text('Chart'),
-            ),
+          Chart(
+            recentTransactions: _recentTransactions,
           ),
           TransactionList(
             transactions: _userTransactions,
