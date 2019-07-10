@@ -15,20 +15,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final List<Transaction> _userTransactions = [
-    // Transaction(
-    //   id: 't1',
-    //   title: 'New shoes',
-    //   amount: 60.99,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't2',
-    //   title: 'New vest',
-    //   amount: 12.99,
-    //   date: DateTime.now(),
-    // ),
-  ];
+  final List<Transaction> _userTransactions = [];
 
   List<Transaction> get _recentTransactions {
     return _userTransactions
@@ -45,16 +32,23 @@ class _MyAppState extends State<MyApp> {
   void _addTransaction(
     String title,
     double amount,
+    DateTime date,
   ) {
     final nextTransaction = Transaction(
       amount: amount,
-      date: DateTime.now(),
+      date: date,
       id: DateTime.now().toString(),
       title: title,
     );
 
     setState(() {
       _userTransactions.add(nextTransaction);
+    });
+  }
+
+  void _removeTransaction(String id) {
+    setState(() {
+      _userTransactions.removeWhere((item) => item.id == id);
     });
   }
 
@@ -90,6 +84,7 @@ class _MyAppState extends State<MyApp> {
             recentTransactions: _recentTransactions,
           ),
           TransactionList(
+            handleRemoveTransaction: _removeTransaction,
             transactions: _userTransactions,
           ),
         ],
