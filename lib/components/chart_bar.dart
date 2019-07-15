@@ -16,6 +16,7 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return LayoutBuilder(
       builder: (
         layoutContext,
@@ -53,7 +54,7 @@ class ChartBar extends StatelessWidget {
                     heightFactor: spendingPercent,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
+                        color: theme.primaryColor,
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),

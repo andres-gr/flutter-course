@@ -16,6 +16,8 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final mediaQuery = MediaQuery.of(context);
     return transactions.isEmpty
         ? LayoutBuilder(
             builder: (
@@ -26,7 +28,7 @@ class TransactionList extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     'No transactions yet!',
-                    style: Theme.of(context).textTheme.title,
+                    style: theme.textTheme.title,
                   ),
                   SizedBox(height: 16),
                   Container(
@@ -61,18 +63,27 @@ class TransactionList extends StatelessWidget {
                 ),
                 title: Text(
                   transactions[index].title,
-                  style: Theme.of(context).textTheme.title,
+                  style: theme.textTheme.title,
                 ),
                 subtitle: Text(
                   DateFormat.yMMM().format(transactions[index].date),
                 ),
-                trailing: IconButton(
-                  color: Theme.of(context).errorColor,
-                  icon: Icon(Icons.delete),
-                  onPressed: () {
-                    handleRemoveTransaction(transactions[index].id);
-                  },
-                ),
+                trailing: mediaQuery.size.width > 460
+                    ? FlatButton.icon(
+                      icon: Icon(Icons.delete),
+                      label: const Text('Delete'),
+                      textColor: theme.errorColor,
+                      onPressed: () {
+                        handleRemoveTransaction(transactions[index].id);
+                      },
+                    )
+                    : IconButton(
+                        color: theme.errorColor,
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          handleRemoveTransaction(transactions[index].id);
+                        },
+                      ),
               ),
             ),
             itemCount: transactions.length,
