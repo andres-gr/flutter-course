@@ -75,11 +75,11 @@ class _MyAppState extends State<MyApp> {
     final title = const Text('Personal Expenses');
     final navAddButton = Platform.isIOS
         ? GestureDetector(
-            child: Icon(CupertinoIcons.add),
+            child: const Icon(CupertinoIcons.add),
             onTap: () => _handleOpenModal(context),
           )
         : IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () => _handleOpenModal(context),
           );
     final mediaQuery = MediaQuery.of(context);
@@ -170,7 +170,7 @@ class _MyAppState extends State<MyApp> {
             appBar: appBar,
             body: body,
             floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add),
+              child: const Icon(Icons.add),
               onPressed: () => _handleOpenModal(context),
             ),
             floatingActionButtonLocation:

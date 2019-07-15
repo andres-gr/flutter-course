@@ -30,7 +30,7 @@ class TransactionList extends StatelessWidget {
                     'No transactions yet!',
                     style: theme.textTheme.title,
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Container(
                     height: constraints.maxHeight * 0.6,
                     child: Image.asset(
@@ -45,7 +45,7 @@ class TransactionList extends StatelessWidget {
         : ListView.builder(
             itemBuilder: (context, index) => Card(
               elevation: 5,
-              margin: EdgeInsets.symmetric(
+              margin: const EdgeInsets.symmetric(
                 vertical: 8.0,
                 horizontal: 5,
               ),
@@ -70,7 +70,7 @@ class TransactionList extends StatelessWidget {
                 ),
                 trailing: mediaQuery.size.width > 460
                     ? FlatButton.icon(
-                      icon: Icon(Icons.delete),
+                      icon: const Icon(Icons.delete),
                       label: const Text('Delete'),
                       textColor: theme.errorColor,
                       onPressed: () {
@@ -79,7 +79,7 @@ class TransactionList extends StatelessWidget {
                     )
                     : IconButton(
                         color: theme.errorColor,
-                        icon: Icon(Icons.delete),
+                        icon: const Icon(Icons.delete),
                         onPressed: () {
                           handleRemoveTransaction(transactions[index].id);
                         },
